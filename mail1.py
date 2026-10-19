@@ -2,40 +2,57 @@ import sys, csv, json, time, socket, threading, shutil
 from pathlib import Path
 from datetime import datetime, date
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtGui import QFont, QPixmap,QPalette,QColor
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton,
     QSpinBox, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout, QTabWidget,
     QMessageBox, QGroupBox, QComboBox, QTextEdit, QSlider, QFileDialog
 )
-def file(): 
-    with open('Login.json' , 'r', encoding='utf8') as a : 
-        pass 
 
-    with open('avto.json', 'r', encoding='etf8') as b : 
-        pass 
-
+with open ('login_password.json','r',encoding='utf8') as file: 
+    pass 
+with open ('regict','w',encoding='utf8' ) as file2 : 
+    pass 
 class globall(QMainWindow): 
     def __init__(self):
         super().__init__() 
-        
-        self.button = QPushButton('Регистрация',self)
+        self.setWindowTitle('Приложение')    
+        central_widget = QWidget(self)
+    
         layout = QVBoxLayout()
-        self.button.resize(149,100)
+        hbox = QHBoxLayout()
         
-        self.button2 = QPushButton('Авторегистрация',self)
-        self.button2.move(150,0)
-        self.button2.resize(150,100)
+        btn = QPushButton('Регистрация', self)
+        btn2 = QPushButton('Авторизация', self) 
 
-        def regicner(self) : 
-            window = QMainWindow() 
-            self.button.click(regicner)
-       
-        
+        self.mail = QLineEdit(self)
+        a = QLabel('Логин')
+        b = QLabel('Пароль')
+        self.password = QLineEdit(self)
+        self.password.EchoMode(QLineEdit.Password)   
+
+        layout.addWidget(a)
+        layout.addWidget(self.mail)
+        layout.addWidget(b)
+        layout.addWidget(self.password)
+
+        hbox.addWidget(btn)
+        hbox.addWidget(btn2)
+
+        layout.addLayout(hbox)
+        central_widget.setLayout(layout)
+        layout.setSpacing(15)
+        layout.setContentsMargins(30,30,30,30)
+        self.setCentralWidget(central_widget)
+        btn.clicked.connect(clik_login)
+        btn.clicked.connect(clik_regicntr)
+        def clik_login(self): 
+            print('Работает')
+        def clik_regicntr(self): 
+            print('Работает')
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
     window = globall()
-    window.resize(1200,750)
+    window.resize(1200, 750)
     window.show()
     sys.exit(app.exec_())
