@@ -18,11 +18,9 @@ def file1():
             return data  
     else : 
         return {} 
-def file2(user):
-    with open('login_password.json','w',encoding='utf-8 ') as b :
-        pass  
-def hesh(password) : 
-    pass 
+def file2(users):
+    with open('login_password.json','w',encoding='utf-8') as b :
+        json.dump(users, b, ensure_ascii=False, indent=4)
 class globall(QMainWindow):
     def __init__(self):
         super().__init__() 
@@ -77,10 +75,13 @@ class Regust(QMainWindow):
         password2_name = QLabel('Подвердите пароль')
 
         self.login = QLineEdit(self)
-        self.password = QLineEdit(self)
+
+        self.password = QLineEdit()
+
         self.password.setEchoMode(QLineEdit.Password)
         self.password2 = QLineEdit(self)    
-        self.password2.setEchoMode(QLineEdit.Password)       
+        self.password2.setEchoMode(QLineEdit.Password)
+
         btn = QPushButton('Регистрация')
         btn2 = QPushButton('Выход')
         btn3 = QPushButton('Назад')
@@ -104,18 +105,51 @@ class Regust(QMainWindow):
         btn.clicked.connect(self.registerr)
         btn2.clicked.connect(self.exitt)
         btn3.clicked.connect(self.nazat)
+        
+    def proverka(self,text_login,text_password) : 
+        if not text_login: 
+            print('работает') 
+        if not text_password : 
+             print('работает')  
     def registerr(self): 
-        print('Работает')
+        text_login = self.login.text()
+        text_password = self.password.text()  
+        text_password2 = self.password2.text() 
+        if not text_login : 
+            print('работает логин')
+        else : 
+            return
+            print('не работает логин')
+            exit
+
+        if not text_password:
+            print('пароль 1 работает')
+            exit
+        else : 
+            return
+            print('Не работает пароль 1')
+            exit
+        if not text_password2: 
+            print('Работает пароль 2')
+            exit
+        else : 
+            return
+            print('Не работает пароль  2 ')
+            exit
+        if text_password == text_password2:
+            print ('Всё хорошо')
+        else : 
+            return
+            print('Не работает проверка совпадении')
+            exit    
     def nazat(self):
         self.login_window
         self.hide()
     def exitt(self): 
         self.hide()
-class pylcometr(QMainWindow):
-    pass  
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = globall()
+    window = globall()  
     window.resize(1200, 750)
     window.show()
     sys.exit(app.exec_())
