@@ -1,5 +1,6 @@
 import json
 import serial
+import face_recognition
 import os  
 import sys, csv, json, time, socket, threading, shutil
 from pathlib import Path
@@ -9,7 +10,7 @@ from PyQt5.QtGui import QFont, QPixmap,QPalette,QColor
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton,
     QSpinBox, QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout, QTabWidget,
-    QMessageBox, QGroupBox, QComboBox, QTextEdit, QSlider, QFileDialog
+    QMessageBox, QGroupBox, QComboBox, QTextEdit, QSlider, QFileDialog,QDialog
 )
 def file1():  
     if os.path.exists('login_password.json'): 
@@ -34,6 +35,7 @@ class globall(QMainWindow):
 
         self.btn = QPushButton('Регистрация', self)
         self.btn2 = QPushButton('Авторизация', self) 
+        self.btn3 = QPushButton('Вход по лицу', self)
         self.hbox.setSpacing(10)
 
         self.mail = QLineEdit(self)
@@ -44,7 +46,7 @@ class globall(QMainWindow):
         self.central_widget.setObjectName("mainBackground")
     def setup_layout(self):  
         self.password.setEchoMode(QLineEdit.Password)   
-
+        
         self.layout.addStretch(1)
         self.layout.addWidget(self.a)
         self.layout.addWidget(self.mail)
@@ -67,6 +69,8 @@ class globall(QMainWindow):
         self.btn2.clicked.connect(self.clik_aftoregister)
         self.login_window = self.clik_register
 
+        self.layout.addWidget(self.btn3)
+        self.btn3.clicked.connect(self.clik_face)
         self.color_globall()
     def color_globall(self):
         self.central_widget.setStyleSheet('QWidget#mainBackground { background-color: #111827; }')
@@ -81,12 +85,14 @@ class globall(QMainWindow):
         self.btn2.setFixedSize(145,40)
         self.mail.setFixedSize(300,40)
         self.password.setFixedSize(300,40)
-
     def metruka_global(self): 
         self.layout.setAlignment(self.mail,Qt.AlignHCenter)
         self.layout.setAlignment(self.password,Qt.AlignHCenter)
         self.layout.setAlignment(self.a,Qt.AlignHCenter)
         self.layout.setAlignment(self.b,Qt.AlignHCenter)
+    def clik_face(self):
+        dialog = FaceLogin()
+        dialog.exec_()
     def clik_register(self):
         self.register_window = Regust(self)
         self.hide()
@@ -108,6 +114,34 @@ class globall(QMainWindow):
                 print('Пароль не правельный')
         else :
             print('Такой логин или паролья нету !')
+class FaceLogin(QDialog): 
+    def __init__(self) : 
+        super().__init__()
+        centr_widet = QWidget()
+
+        Kamera_face()
+        self.Kamera1()
+        self.calor_Facelogin()
+        self.metruka_face()
+
+    def Kamera_face(self): 
+        self.zagalovok = Qlabel('Биометрическая авторезация')
+        self.Kamera = QLabel('Ожидание камеры') 
+        self.resize(500,400)  
+
+    def calor_Facelogin(self):
+        self.zagalovok.QFileDialog('calor : ')
+        self.Kamera.QFiledialog('calor')
+
+    def metruka_face(self):
+        self.Xbox = QHBoxLayout()
+        self.Vbox = QVBoxLayout()
+
+        xbox.addWidget(self.zagalovok)
+        Xbox.addWidget(self.Kamera)
+    def vozrat_okna(self):
+        self.globall.show()
+        self.hide()
 class Regust(QMainWindow): 
     def __init__(self,clik_register):
         super().__init__()
@@ -237,7 +271,7 @@ class pylcometr(QMainWindow) :
         self.create_widgets()
         self.color_pulse()
 
-        self.port = serial.Serial('COM3', 115200, timeout=0)
+        self.port = serial.Serial('COM10', 115200, timeout=0)
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.read_pulse)
         self.timer.start(100)
