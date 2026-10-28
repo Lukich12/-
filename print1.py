@@ -1,6 +1,6 @@
 import json
 import serial
-import face_recognition
+#import face_recognition
 import os  
 import sys, csv, json, time, socket, threading, shutil
 from pathlib import Path
@@ -22,299 +22,215 @@ def file1():
 def file2(users):
     with open('login_password.json','w',encoding='utf-8') as b :
         json.dump(users, b, ensure_ascii=False, indent=4)
-class globall(QMainWindow):
+class regicter(QMainWindow):
     def __init__(self):
         super().__init__()   
         self.central_widget = QWidget(self)
-        self.create_widgets()
-        self.setup_layout()
-        self.metruka_global()
-    def create_widgets(self): 
-        self.layout = QVBoxLayout()
-        self.hbox = QHBoxLayout()
-
-        self.btn = QPushButton('Регистрация', self)
-        self.btn2 = QPushButton('Авторизация', self) 
-        self.btn3 = QPushButton('Вход по лицу', self)
-        self.hbox.setSpacing(10)
-
-        self.mail = QLineEdit(self)
-        self.a = QLabel('Логин')
-        self.b = QLabel('пароль')
-        self.password = QLineEdit(self)
-
-        self.central_widget.setObjectName("mainBackground")
-    def setup_layout(self):  
-        self.password.setEchoMode(QLineEdit.Password)   
-        
-        self.layout.addStretch(1)
-        self.layout.addWidget(self.a)
-        self.layout.addWidget(self.mail)
-        self.layout.addWidget(self.b)
-        self.layout.addWidget(self.password)
-
-        self.hbox.addStretch(1)
-        self.hbox.addWidget(self.btn)
-        self.hbox.addWidget(self.btn2)
-        self.hbox.addStretch(1)
-
-        self.layout.addLayout(self.hbox)
-        self.central_widget.setLayout(self.layout)
-        self.layout.setSpacing(15)
-        self.layout.setContentsMargins(30,30,30,30)
-        self.setCentralWidget(self.central_widget)
-        self.layout.addStretch(1)
-
-        self.btn.clicked.connect(self.clik_register)   
-        self.btn2.clicked.connect(self.clik_aftoregister)
-        self.login_window = self.clik_register
-
-        self.layout.addWidget(self.btn3)
-        self.btn3.clicked.connect(self.clik_face)
-        self.color_globall()
-    def color_globall(self):
-        self.central_widget.setStyleSheet('QWidget#mainBackground { background-color: #111827; }')
-
-        self.btn.setStyleSheet('background-color: #374151; color: #FFFFFF; border-radius: 10px;')
-        self.btn2.setStyleSheet('background-color: #374151; color: #FFFFFF; border-radius: 10px;')
-
-        self.a.setStyleSheet('color: #E5E7EB;')
-        self.b.setStyleSheet('color: #E5E7EB;')
-
-        self.btn.setFixedSize(145,40)
-        self.btn2.setFixedSize(145,40)
-        self.mail.setFixedSize(300,40)
-        self.password.setFixedSize(300,40)
-    def metruka_global(self): 
-        self.layout.setAlignment(self.mail,Qt.AlignHCenter)
-        self.layout.setAlignment(self.password,Qt.AlignHCenter)
-        self.layout.setAlignment(self.a,Qt.AlignHCenter)
-        self.layout.setAlignment(self.b,Qt.AlignHCenter)
-    def clik_face(self):
-        dialog = FaceLogin()
-        dialog.exec_()
-    def clik_register(self):
-        self.register_window = Regust(self)
-        self.hide()
-        self.register_window.resize(800,550)
-        self.register_window.show()
-        self.afroregister = pylcometr()
-    def clik_aftoregister(self):
-        Textlogin = self.mail.text()
-        Textpassword = self.password.text()
-        users = file1() 
-        if Textlogin in users :
-            if users[Textlogin] == Textpassword  : 
-                print('Вход успешный !')
-                self.afroregister = pylcometr()
-                self.hide()
-                self.afroregister.resize(800, 550)
-                self.afroregister.show()
-            else : 
-                print('Пароль не правельный')
-        else :
-            print('Такой логин или паролья нету !')
-class FaceLogin(QDialog): 
-    def __init__(self) : 
-        super().__init__()
-        centr_widet = QWidget()
-
-        Kamera_face()
-        self.Kamera1()
-        self.calor_Facelogin()
-        self.metruka_face()
-
-    def Kamera_face(self): 
-        self.zagalovok = Qlabel('Биометрическая авторезация')
-        self.Kamera = QLabel('Ожидание камеры') 
-        self.resize(500,400)  
-
-    def calor_Facelogin(self):
-        self.zagalovok.QFileDialog('calor : ')
-        self.Kamera.QFiledialog('calor')
-
-    def metruka_face(self):
-        self.Xbox = QHBoxLayout()
+        self.regict()
+    def regict(self): 
+        self.Hbox = QHBoxLayout()
         self.Vbox = QVBoxLayout()
+        self.Hbox.addLayout(self.Vbox)
 
-        xbox.addWidget(self.zagalovok)
-        Xbox.addWidget(self.Kamera)
-    def vozrat_okna(self):
-        self.globall.show()
-        self.hide()
-class Regust(QMainWindow): 
-    def __init__(self,clik_register):
-        super().__init__()
-        self.login_window = clik_register
-        self.centr_widet = QWidget()
-        self.create_widgets()
-        self.setup_layout()
-        self.centr_widet.setObjectName("mainBackground")
-        self.calor_rugust()
-    def create_widgets(self):
-        self.Qbox = QVBoxLayout()
-        self.Xbox = QHBoxLayout()
+        self.regicter_blok = QLabel('Регистрация оператора')
+        self.id_blok = QLabel('Идентифцикаия')
+        self.info_blok = QLabel('Информационный блок')
 
-        self.login_name = QLabel('логин')
-        self.password_name = QLabel('пароль')
-        self.password2_name = QLabel('Подвердите пароль')
+        # Regist_blok  
+        self.name_1 = QLabel('Фамилия')
+        self.name_2 = QLabel('Имя')
+        self.name_3 = QLabel('oтчество')
+        self.age = QLabel('Возраст')
 
-        self.login = QLineEdit(self)
+        self.full_name = QLabel()
 
-        self.password = QLineEdit(self)
+        self.name1 = QLineEdit()
+        self.name1Text = self.name1.QLineEdit()
+        self.name2 = QLineEdit()
+        self.name3 = QLineEdit()
+        self.age_ = QLineEdit()
 
-        self.password.setEchoMode(QLineEdit.Password)
-        self.password2 = QLineEdit(self)    
-        self.password2.setEchoMode(QLineEdit.Password)
+        self.btn_regiser = QPushButton('Записать')
 
-        self.btn = QPushButton('Регистрация')
-        self.btn2 = QPushButton('Выход')
-        self.btn3 = QPushButton('Назад')
-    def setup_layout(self): 
+        #id_blok
+        self.kakera = QLabel()
+        #info_blok
+        self.oper = QLabel()
+        self.id_name = QLineEdit()
+        self.info = QLabel('Для запуска программы нажмите далее')
+        self.btn_info = QPushButton('Далее')
 
-        self.login.setFixedSize(300, 40)
-        self.password.setFixedSize(300, 40)
-        self.password2.setFixedSize(300, 40)
-                
-        self.btn.setFixedSize(120, 40)
-        self.btn2.setFixedSize(120, 40)
-        self.btn3.setFixedSize(120, 40)
-        
-        self.Qbox.addStretch(1)
-        self.Qbox.addWidget(self.login_name)
-        self.Qbox.addWidget(self.login)
+        self.btn_regiser.clicked.connect(self.clik_btn_register)
+        self.btn_info.clicked.connect(self.clik_btn_info)
 
-        self.Qbox.addWidget(self.password_name)
-        self.Qbox.addWidget(self.password)
-        self.Qbox.addWidget(self.password2_name)
-        self.Qbox.addWidget(self.password2)
+        self.Boxlayout()
+    def Boxlayout(self):
+        self.Hbox.addWidget(self.name_1)
+        self.Hbox.addWidget(self.name_2)
+        self.Hbox.addWidget(self.name_3)
+        self.Hbox.addWidget(self.age)
 
-        self.Xbox.addStretch(1)
-        self.Xbox.addWidget(self.btn)
-        self.Xbox.addWidget(self.btn2)
-        self.Xbox.addWidget(self.btn3)
-        self.Xbox.addStretch(1)
-        self.Xbox.setSpacing(10)
+        self.Hbox.addWidget(self.name1)
+        self.Hbox.addWidget(self.name2)
+        self.Hbox.addWidget(self.name3)
+        self.Hbox.addWidget(self.age_)
 
-        self.Qbox.addLayout(self.Xbox)
-        self.Qbox.addStretch(1)
-        self.Qbox.setSpacing(10)
-        self.Qbox.setContentsMargins(30, 30, 30, 30)
-        self.centr_widet.setLayout(self.Qbox)
-        self.setCentralWidget(self.centr_widet)
+        self.Vbox.addWidget(self.btn_regiser)
 
-        self.btn.clicked.connect(self.registerr)
-        self.btn2.clicked.connect(self.exitt)
-        self.btn3.clicked.connect(self.nazat)
+        self.Hbox.addWidget(self.kakera)
 
-        self.Qbox.setAlignment(self.login, Qt.AlignHCenter)
-        self.Qbox.setAlignment(self.password, Qt.AlignHCenter)
-        self.Qbox.setAlignment(self.password2, Qt.AlignHCenter)
+        self.Hbox.addWidget(self.oper)
+        self.Hbox.addWidget(self.id_name)
 
-        self.Qbox.setAlignment(self.password_name, Qt.AlignHCenter)
-        self.Qbox.setAlignment(self.password2_name, Qt.AlignHCenter)
-        self.Qbox.setAlignment(self.login_name, Qt.AlignHCenter)
-    def calor_rugust(self): 
-        self.centr_widet.setStyleSheet('QWidget#mainBackground {  background-color: #111827; }')
+        self.Hbox.addWidget(self.info)
+        self.Vbox.addWidget(self.btn_info)
 
-        self.btn.setStyleSheet('background-color: #374151; color: #FFFFFF; border-radius: 10px; ')
-        self.btn2.setStyleSheet('background-color: #374151; color: #FFFFFF; border-radius: 10px;')
-        self.btn3.setStyleSheet('background-color: #374151; color: #FFFFFF; border-radius: 10px;')
-
-        self.login_name.setStyleSheet('color: #E5E7EB;')
-        self.password_name.setStyleSheet('color: #E5E7EB ')
-        self.password2_name.setStyleSheet('color: #E5E7EB')
-
-        self.login.setStyleSheet("background-color: white; color: black; border-radius: 6px;")
-        self.password.setStyleSheet("background-color: white; color: black; border-radius: 6px;")
-        self.password2.setStyleSheet("background-color: white; color: black; border-radius: 6px;")
-    def proverka(self,text_login,text_password) : 
-        if not text_login: 
-            print('работает') 
-        if not text_password : 
-             print('работает')  
-    def registerr(self): 
-        text_login = self.login.text()
-        text_password = self.password.text()  
-        text_password2 = self.password2.text() 
-        if not text_login : 
-            print('Ошибка логина')
-            return
-        if not text_password : 
-            print('Ошибка пароль')
-            return 
-        if not text_password2 : 
-            print('Ошибка пароль 2')
-            return   
-        if text_password != text_password2 : 
-            print('Пароль не совподает')
-            return
-        
-        users = file1()
-        if text_login in users:  
-            print('Такой логина уже существует ')
-            return
-        else: 
-            users[text_login] = text_password
-            file2(users)
-            print('Регистрация прошла успешно !')
-            self.nazat()
-    def nazat(self):
-        self.login_window.show()
-        self.hide()
-    def exitt(self): 
-        self.hide()
-class pylcometr(QMainWindow) :
+        self.color_regitr()
+    def color_regitr(self): 
+        pass 
+    def clik_btn_register(self):
+        btn_text = self.btn_regiser.text() 
+        with open('Login_password', 'r', encoding='utf-8') as file_registr : 
+            data = json.load(file_registr)
+            if data in btn_text : 
+                pass  
+    def clik_btn_info(self):
+        btn_info = self.btn_info.text()
+        with open('Login_password.json', 'r', encoding='utf-8') as file_info : 
+            data = json.load(file_info) 
+            if data in btn_info : 
+                self.hide()
+                pylcometr.show()  
+class avtoregust(QMainWindow): 
     def __init__(self):
         super().__init__()
         self.centralwidget = QWidget()
-        self.create_widgets()
-        self.color_pulse()
+        self.setCentralWidget(self.centralwidget)
+        self.regicter()
+    def regicter(self): 
+        self.Xbox = QHBoxLayout()
+        self.Vbox = QVBoxLayout()
+        self.Xbox.addLayout(self.Vbox)
 
-        self.port = serial.Serial('COM10', 115200, timeout=0)
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.read_pulse)
-        self.timer.start(100)
+        self.id_oper = QLabel('Авторезация оператора')
+        self.id_name = QLabel('Введите ID')
+
+        self.id_Edit = QLineEdit()
+
+        self.btn_id = QPushButton('Авторезация')
+        self.layout_id()
+    def layout_id(self):
+        self.setCentralWidget(self.centralwidget)
+        
+        self.Xbox.addWidget(self.id_oper)
+        self.Vbox.addWidget(self.id_name)
+
+        self.Xbox.addStretch(1)
+        self.Xbox.addWidget(self.id_Edit)
+        self.Xbox.addStretch(1)
+
+        self.Xbox.addStretch(1)
+        self.Vbox.addWidget(self.btn_id)
+
+        self.btn_id.clicked.connect(self.clik_btn_id)
+        self.color_id()
+    def color_id(self): 
+        self.id_oper.setStyleSheet('color: #FFFFFF')
+        self.id_name.setStyleSheet('color: #FFFFFF')
+    
+        self.id_Edit.setStyleSheet('background-color: #000000 ; color: #FFFFFF')
+        self.btn_id.setStyleSheet('background-color : #000000 ; color: #FFFFFF')
+    def clik_btn_id(self): 
+        text_id = self.id_Edit.text()
+        with open ('login_password.json','r',encoding='utf-8') as file1 :    
+            data = json.load(file1)
+            if text_id in data: 
+                self.hide()
+                pylcometr.show()
+class pylcometr(QMainWindow) :
+    def __init__(self):
+        super().__init__()
     def create_widgets(self):
+        self.centralwidget = QWidget()
+
         self.xbox = QHBoxLayout()
         self.Vbox =  QVBoxLayout()
-        self.btn_exit = QPushButton('Выход')
 
-        self.tek_pulse = QLabel('Текущий пулс') 
-        self.puls = QLabel('---') 
-        self.pulse_name = QLabel('ВРМ')
+        self.meny = QLabel('Меню управление')
 
-        self.Vbox.addWidget(self.btn_exit)
+        self.btn_info = QPushButton('Инструкция')
+        self.btn_analiz = QPushButton('Анализ')
+        self.btn_ynp = QPushButton('Управление')
 
-        self.btn_exit.clicked.connect(self.exitt)
+        self.analiz = QLabel('Анализ оператора')
 
-        self.xbox.addWidget(self.tek_pulse)
-        self.xbox.addWidget(self.puls)
-        self.Vbox.addLayout(self.xbox)
+        self.pylsMax_name = QLabel('Укажите порог вашего пульса')
+        self.pylsMin_name = QLabel('Укажите норму вашего пульса')
 
-        self.centralwidget.setLayout(self.Vbox)
-        self.setCentralWidget(self.centralwidget)
-    def color_pulse(self):
-        self.centralwidget.setObjectName("pulseBackground")
-        self.centralwidget.setStyleSheet(
-        "QWidget#pulseBackground { background-color: #111827; }"
-        )
+        self.pylsMax = QLineEdit()
+        self.pylsMin = QLineEdit()
 
-        self.puls.setStyleSheet("color: #F87171;")
-        self.puls.setAlignment(Qt.AlignCenter)
+        self.btn_zapicn = QPushButton('Записать')
 
-        self.tek_pulse.setStyleSheet('Color: #F87171 ')
+        self.tepmenal = QLabel('Терминал блока информации')
+
+        self.info_user = QLabel('Индефекация')
+
+        self.user_ = QLabel('Оператор определен :')
+        self.user = QLabel('')
+        self.btn_pylcDalue = QPushButton('Далее')
+    def layoutBox(self):
+        pass 
+    def color_pycometr(self) : 
+        pass 
+    def builging_button(self): 
+        self.btn_pylcDalue.clicked.connect(self.Button_Dalue)
+        self.btn_zapicn.clicked.connect(self.button_zapich)
+    def button_zapich(self): 
+        pass
+    def Button_Dalue(self):
+            self.hide()
+            self.info_user.show()               
+    def port_pylc(self):
+            self.port = serial.Serial('COM10', 115200, timeout=0)
+            self.timer = QTimer(self)
+            self.timer.timeout.connect(self.read_pulse)
+            self.timer.start(100)
     def read_pulse(self): 
         if self.port.in_waiting:
             line = self.port.readline().decode('utf-8', errors='ignore').strip()
             if 'BPM:' in line:
                 bpm = line.split('BPM:')[1].strip()
                 self.puls.setText(f'{bpm} BPM')  
-    def exitt(self): 
-        self.close() 
+class lnfo_user(QMainWindow):
+    def __init__(self):
+        super().__init__() 
+    def info(self): 
+        self.info_oper = QLabel('Информация оператора')
+        self.kamera_user = QLabel()
+
+        self.time = QLabel(time)
+        self.time_po = QLabel('Время запуска ПО')
+        self.time_goroga = QLabel('Время в дороге')
+        self.timeMax = QLabel('Оставшееся время')
+        self.cocto = QLabel('Состояние:')
+
+        self.tepminal_blok = QLabel('Терминальный блок')
+
+        self.blok_undefeka = QLabel('Блок индефекации')
+
+        self.pyls = QLabel('---')
+
+        self.stop = QPushButton('Стоп программа')
+
+        self.stop.clicked.connect(self.stop_programa)
+    def stop_programa(self): 
+           self.hide()
+           exit() 
+    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = globall()  
+    window = regicter()  
     window.resize(800,550)
     window.show()
     sys.exit(app.exec_())
